@@ -20,7 +20,7 @@
     "tag",
     "google"
   ],
-  "private": true,
+  "private": false,
   "license": "MIT",
   "main": "./dist/index.js",
   "engines": {
