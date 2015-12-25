@@ -4,6 +4,7 @@ const ResizeType = keymirror({
   NONE: null,
   FIT: null,
   COVER: null,
+  CANVAS: null,
 });
 
 export default ResizeType;

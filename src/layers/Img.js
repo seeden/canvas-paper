@@ -138,7 +138,10 @@ export default class Img extends Layer {
 
       const resizeType = this.getResizeType();
 
-      if (resizeType === ResizeType.FIT) {
+      if (resizeType === ResizeType.CANVAS) {
+        const canvas = ctx.canvas;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      } else if (resizeType === ResizeType.FIT) {
         this.resizeFit(ctx, img);
       } else if (resizeType === ResizeType.COVER) {
         this.resizeCover(ctx, img);
