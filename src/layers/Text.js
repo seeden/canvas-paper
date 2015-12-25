@@ -1,5 +1,6 @@
 import Layer from './Layer';
 import LayerType from '../constants/LayerType';
+import TextAlign from '../constants/TextAlign';
 
 const defaultOptions = {
   width: 280,
@@ -7,7 +8,7 @@ const defaultOptions = {
   type: LayerType.TEXT,
   text: 'Sample Text',
   color: 'black',
-  align: 'center',
+  align: TextAlign.LEFT,
   baseline: 'middle',
   size: 35,
   fontWeight: 'normal',
@@ -78,17 +79,33 @@ export default class Text extends Layer {
     return this.set('font', value, disableEmit);
   }
 
+  getTextPosition() {
+    const align = this.getAlign();
+    const position = this.getPosition();
+
+    if (align === TextAlign.CENTER) {
+      return {
+        x: Math.floor(position.x + position.width / 2),
+        y: Math.floor(position.y + position.height / 2),
+      };
+    }
+
+    return {
+      x: position.x,
+      y: position.y,
+    };
+  }
+
   render(ctx, paper, callback) {
     const text = this.getText();
-    const position = this.getPosition();
+    const alignPosition = this.getTextPosition();
 
     ctx.textAlign = this.getAlign();
     ctx.fillStyle = this.getColor();
     ctx.textBaseline = this.getBaseline();
 
     ctx.font = `${this.getFontWeight()} ${this.getSize()}px ${this.getFont()}`;
-
-    ctx.fillText(text, Math.floor(position.x + position.width / 2), Math.floor(position.y + position.height / 2));
+    ctx.fillText(text, alignPosition.x, alignPosition.y);
 
     callback(null);
     return this;
