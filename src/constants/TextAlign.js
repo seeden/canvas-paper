@@ -1,7 +1,7 @@
 import keymirror from 'keymirror';
 
-const ResizeType = keymirror({
+export default {
   LEFT: 'left',
   CENTER: 'center',
   RIGHT: 'right',
-});
+};

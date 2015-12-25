@@ -1,6 +1,7 @@
 import Layer from './Layer';
 import LayerType from '../constants/LayerType';
 import TextAlign from '../constants/TextAlign';
+import TextBaseline from '../constants/TextBaseline';
 
 const defaultOptions = {
   width: 280,
@@ -9,7 +10,7 @@ const defaultOptions = {
   text: 'Sample Text',
   color: 'black',
   align: TextAlign.LEFT,
-  baseline: 'middle',
+  baseline: TextBaseline.ALPHABETIC,
   size: 35,
   fontWeight: 'normal',
   font: 'Arial',
