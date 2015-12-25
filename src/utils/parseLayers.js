@@ -1,5 +1,5 @@
 import LayerType from '../constants/LayerType';
-import { Text, Img, Photo, RandomText } from '../layers';
+import { Text, Img, Photo, RandomText, Layer } from '../layers';
 
 export default function parseLayers(layers) {
   return layers.map((options) => {
