@@ -126,13 +126,9 @@ export default class Paper extends EventEmitter {
     return this._layers.map(fn);
   }
 
-  render(canvas, drawSelection, continueOnError, callback) {
+  render(canvas, continueOnError, callback) {
     if (typeof continueOnError === 'function') {
       return this.render(canvas, false, false, continueOnError);
-    }
-
-    if (typeof drawSelection === 'function') {
-      return this.render(canvas, false, drawSelection);
     }
 
     const options = this.getOptions();
