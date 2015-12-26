@@ -29,7 +29,7 @@ export default class Selection extends Layer {
     const position = layer.getPosition();
 
     if (layer instanceof Img) {
-      return this.getImage(layer.getUrl(), (err, img) => {
+      return paper.getImage(layer.getUrl(), (err, img) => {
         if (err) {
           return callback(err);
         }
