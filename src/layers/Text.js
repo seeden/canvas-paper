@@ -87,7 +87,12 @@ export default class Text extends Layer {
     if (align === TextAlign.CENTER) {
       return {
         x: Math.floor(position.x + position.width / 2),
-        y: Math.floor(position.y + position.height / 2),
+        y: position.y,
+      };
+    } else if (align === TextAlign.RIGHT) {
+      return {
+        x: position.x + position.width,
+        y: position.y,
       };
     }
 
