@@ -44,8 +44,8 @@ export default class Selection extends Layer {
       });
     }
 
-    if (typeof poition.width !== 'undefined' && typeof poition.height !== 'undefined') {
-      ctx.strokeRect(poition.x, poition.y, poition.width, poition.height);
+    if (typeof position.width !== 'undefined' && typeof position.height !== 'undefined') {
+      ctx.strokeRect(position.x, position.y, position.width, position.height);
       return callback(null);
     }
 
