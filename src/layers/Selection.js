@@ -28,7 +28,10 @@ export default class Selection extends Layer {
     const canvas = ctx.canvas;
     const position = layer.getPosition();
 
-    if (layer instanceof Img) {
+    if (typeof position.width !== 'undefined' && typeof position.height !== 'undefined') {
+      ctx.strokeRect(position.x, position.y, position.width, position.height);
+      return callback(null);
+    } else if (layer instanceof Img) {
       return paper.getImage(layer.getUrl(), (err, img) => {
         if (err) {
           return callback(err);
@@ -42,11 +45,6 @@ export default class Selection extends Layer {
         ctx.strokeRect(position.x, position.y, img.width, img.height);
         callback(null);
       });
-    }
-
-    if (typeof position.width !== 'undefined' && typeof position.height !== 'undefined') {
-      ctx.strokeRect(position.x, position.y, position.width, position.height);
-      return callback(null);
     }
 
     ctx.strokeRect(position.x, position.y, canvas.width - position.x, canvas.height - position.y);
