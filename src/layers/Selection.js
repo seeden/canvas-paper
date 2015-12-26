@@ -1,4 +1,5 @@
 import Layer from './Layer';
+import Img from './Img';
 import LayerType from '../constants/LayerType';
 
 const defaultOptions = {
@@ -16,26 +17,18 @@ export default class Selection extends Layer {
 
   render(ctx, paper, callback) {
     const options = this.getOptions();
+    const layer = options.layer;
+    if (!(layer instanceof Layer)) {
+      return callback(new Error('Layer is not instance of layer'));
+    }
 
     ctx.lineWidth = options.selectionWidth;
     ctx.strokeStyle = options.selectionColor;
 
-    const position = this.getPosition();
     const canvas = ctx.canvas;
+    const position = layer.getPosition();
 
-    if (typeof position.width !== 'undefined' && typeof position.height !== 'undefined') {
-      ctx.strokeRect(position.x, position.y, position.width, position.height);
-      return callback(null);
-    }
-
-    ctx.strokeRect(position.x, position.y, canvas.width - position.x, canvas.height - position.y);
-    return callback(null);
-  }
-
-  /*
-
-  static createByLayer(layer, callback) {
-    else if (layer instanceof Img) {
+    if (layer instanceof Img) {
       return this.getImage(layer.getUrl(), (err, img) => {
         if (err) {
           return callback(err);
@@ -50,5 +43,13 @@ export default class Selection extends Layer {
         callback(null);
       });
     }
-  }*/
+
+    if (typeof poition.width !== 'undefined' && typeof poition.height !== 'undefined') {
+      ctx.strokeRect(poition.x, poition.y, poition.width, poition.height);
+      return callback(null);
+    }
+
+    ctx.strokeRect(position.x, position.y, canvas.width - position.x, canvas.height - position.y);
+    return callback(null);
+  }
 }
