@@ -1,5 +1,5 @@
 import LayerType from '../constants/LayerType';
-import { Text, Img, Photo, RandomText, Layer } from '../layers';
+import { Text, Img, Photo, RandomText, Selection, Layer } from '../layers';
 
 export function createLayer(options) {
   switch(options.type) {
@@ -11,6 +11,8 @@ export function createLayer(options) {
     return new Img(options);
   case LayerType.PHOTO:
     return new Photo(options);
+  case LayerType.SELECTION:
+    return new Selection(options);
   default:
     return new Layer(options);
   }
