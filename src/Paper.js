@@ -207,7 +207,5 @@ export default class Paper extends EventEmitter {
         eachCallback(err);
       });
     }, callback);
-
-    callback(null);
   }
 }
