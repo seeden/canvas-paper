@@ -197,6 +197,7 @@ export default class Paper extends EventEmitter {
       // disable overlap off styles
       ctx.save();
 
+      layer.prepareContext(ctx);
       layer.render(ctx, this, (err) => {
         ctx.restore();
 

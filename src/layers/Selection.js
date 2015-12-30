@@ -3,8 +3,8 @@ import Img from './Img';
 import LayerType from '../constants/LayerType';
 
 const defaultOptions = {
-  selectionWidth: 2,
-  selectionColor: '#B1D7FE',
+  lineWidth: 2,
+  strokeStyle: '#B1D7FE',
 };
 
 export default class Selection extends Layer {
@@ -22,8 +22,8 @@ export default class Selection extends Layer {
       return callback(new Error('Layer is not instance of layer'));
     }
 
-    ctx.lineWidth = options.selectionWidth;
-    ctx.strokeStyle = options.selectionColor;
+    ctx.lineWidth = options.lineWidth;
+    ctx.strokeStyle = options.strokeStyle;
 
     const canvas = ctx.canvas;
     const position = layer.getPosition();

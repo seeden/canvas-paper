@@ -8,9 +8,9 @@ const defaultOptions = {
   height: 35,
   type: LayerType.TEXT,
   text: 'Sample Text',
-  color: 'black',
-  align: TextAlign.LEFT,
-  baseline: TextBaseline.ALPHABETIC,
+  fillStyle: 'black',
+  textAlign: TextAlign.LEFT,
+  textBaseline: TextBaseline.ALPHABETIC,
   size: 35,
   fontWeight: 'normal',
   font: 'Arial',
@@ -24,28 +24,28 @@ export default class Text extends Layer {
     });
   }
 
-  getColor() {
-    return this.getOptions().color;
+  getFillStyle() {
+    return this.getOptions().fillStyle;
   }
 
-  setColor(value, disableEmit) {
-    return this.set('color', value, disableEmit);
+  setFillStyle(value, disableEmit) {
+    return this.set('fillStyle', value, disableEmit);
   }
 
-  getAlign() {
-    return this.getOptions().align;
+  getTextAlign() {
+    return this.getOptions().textAlign;
   }
 
-  setAlign(value, disableEmit) {
-    return this.set('align', value, disableEmit);
+  setTextAlign(value, disableEmit) {
+    return this.set('textAlign', value, disableEmit);
   }
 
-  getBaseline() {
-    return this.getOptions().baseline;
+  getTextBaseline() {
+    return this.getOptions().textBaseline;
   }
 
-  setBaseline(value, disableEmit) {
-    return this.set('baseline', value, disableEmit);
+  setTextBaseline(value, disableEmit) {
+    return this.set('textBaseline', value, disableEmit);
   }
 
   getText() {
@@ -81,15 +81,15 @@ export default class Text extends Layer {
   }
 
   getTextPosition() {
-    const align = this.getAlign();
+    const textAlign = this.getTextAlign();
     const position = this.getPosition();
 
-    if (align === TextAlign.CENTER) {
+    if (textAlign === TextAlign.CENTER) {
       return {
         x: Math.floor(position.x + position.width / 2),
         y: position.y,
       };
-    } else if (align === TextAlign.RIGHT) {
+    } else if (textAlign === TextAlign.RIGHT) {
       return {
         x: position.x + position.width,
         y: position.y,
@@ -106,9 +106,10 @@ export default class Text extends Layer {
     const text = this.getText();
     const alignPosition = this.getTextPosition();
 
-    ctx.textAlign = this.getAlign();
-    ctx.fillStyle = this.getColor();
-    ctx.textBaseline = this.getBaseline();
+    ctx.textAlign = this.getTextAlign();
+    ctx.textBaseline = this.getTextBaseline();
+
+    ctx.fillStyle = this.getFillStyle();
 
     ctx.font = `${this.getFontWeight()} ${this.getSize()}px ${this.getFont()}`;
     ctx.fillText(text, alignPosition.x, alignPosition.y);

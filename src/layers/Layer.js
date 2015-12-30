@@ -6,6 +6,7 @@ const defaultOptions = {
   y: 0,
   width: void 0,
   height: void 0,
+  alpha: 1,
 };
 
 export default class Layer extends EventEmitter {
@@ -62,6 +63,14 @@ export default class Layer extends EventEmitter {
     return this.set('y', value, disableEmit);
   }
 
+  getAlpha() {
+    return this.getOptions().alpha;
+  }
+
+  setAlpha(value, disableEmit) {
+    return this.set('alpha', value, disableEmit);
+  }
+
   getPosition() {
     return {
       x: this.getX(),
@@ -109,7 +118,6 @@ export default class Layer extends EventEmitter {
     return this;
   }
 
-
   emitChange = () => {
     this.emit('change');
     return this;
@@ -119,6 +127,10 @@ export default class Layer extends EventEmitter {
     return {
       ...this._options,
     };
+  }
+
+  prepareContext(ctx) {
+    ctx.globalAlpha = this.getAlpha();
   }
 
   render(ctx, paper, callback) {
