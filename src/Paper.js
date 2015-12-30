@@ -36,7 +36,7 @@ function eachSeriesSync(items, fn, callback, current = 0) {
       }
 
       // call async function because it was async already
-      setImmediate(() => eachSeriesSync(items, fn, callback, current + 1));
+      setImmediate(() => eachSeriesSync(items, fn, callback, index + 1));
     });
 
     isAsync = true;
