@@ -1,6 +1,6 @@
 import { setImmediate } from 'async';
 import getImage from './utils/getImage';
-import { Layer, Img } from './layers';
+import { Layer } from './layers';
 import { EventEmitter } from 'events';
 
 const defaultOptions = {
@@ -32,7 +32,7 @@ function eachSeriesSync(items, fn, callback, current = 0) {
 
       // if sync then next itteration is by for
       if (!isAsync) {
-        return;
+        return void 0;
       }
 
       // call async function because it was async already
@@ -43,7 +43,7 @@ function eachSeriesSync(items, fn, callback, current = 0) {
 
     // waiting for async operation
     if (!hasResult) {
-      return;
+      return void 0;
     }
   }
 

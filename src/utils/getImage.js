@@ -7,9 +7,9 @@ export default function getImage(url, callback) {
 
   const img = new Image();
   img.onload = () => callback(null, img);
-  img.onerror = (err) => {
+  img.onerror = () => {
     callback(new Error('There is a problem with image ' + url));
-  }
+  };
 
   img.src = url;
 }

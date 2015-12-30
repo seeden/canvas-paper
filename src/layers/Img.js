@@ -79,8 +79,6 @@ export default class Img extends Layer {
 
   getCoverPosition(img) {
     const coverSize = this.getCoverSize(img);
-    const width = this.getWidth();
-    const height = this.getHeight();
 
     const position = {
       x: 0,

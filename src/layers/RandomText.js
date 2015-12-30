@@ -29,7 +29,7 @@ export default class RandomText extends Text {
 
     return this.set('variants', [
       ...variants.slice(0, index),
-      ...variants.slice(index + 1, variants.length)
+      ...variants.slice(index + 1, variants.length),
     ], disableEmit);
   }
 

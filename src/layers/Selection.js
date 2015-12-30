@@ -3,6 +3,7 @@ import Img from './Img';
 import LayerType from '../constants/LayerType';
 
 const defaultOptions = {
+  type: LayerType.SELECTION,
   lineWidth: 2,
   strokeStyle: '#B1D7FE',
 };

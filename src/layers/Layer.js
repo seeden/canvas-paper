@@ -107,7 +107,7 @@ export default class Layer extends EventEmitter {
       }
 
       return this;
-    };
+    }
 
     this._options[key] = value;
 
@@ -133,7 +133,7 @@ export default class Layer extends EventEmitter {
     ctx.globalAlpha = this.getAlpha();
   }
 
-  render(ctx, paper, callback) {
+  render(/* ctx, paper, callback */) {
     throw new Error('You need to override render method');
   }
 }
