@@ -8,6 +8,7 @@ const defaultOptions = {
   url: null,
   resizeType: ResizeType.NONE,
   coverType: CoverType.LEFT_TOP,
+  imageSmoothingEnabled: true,
 };
 
 export default class Img extends Layer {
@@ -16,6 +17,10 @@ export default class Img extends Layer {
       ...defaultOptions,
       ...options,
     });
+  }
+
+  getImageSmoothingEnabled() {
+    return this.getOptions().imageSmoothingEnabled;
   }
 
   getUrl() {
@@ -133,6 +138,8 @@ export default class Img extends Layer {
       if (!img) {
         return callback(new Error('Image is undefined'));
       }
+
+      ctx.imageSmoothingEnabled = this.getImageSmoothingEnabled();
 
       const resizeType = this.getResizeType();
 
