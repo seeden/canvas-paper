@@ -197,6 +197,9 @@ export default class Paper extends EventEmitter {
       // disable overlap off styles
       ctx.save();
 
+      // reset paths
+      ctx.beginPath();
+
       layer.prepareContext(ctx);
       layer.render(ctx, this, (err) => {
         ctx.restore();
