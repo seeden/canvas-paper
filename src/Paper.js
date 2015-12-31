@@ -108,6 +108,30 @@ export default class Paper extends EventEmitter {
     });
   }
 
+  remove(layer, disableEmit) {
+    const layers = this._layers;
+
+    if (!(layer instanceof Layer)) {
+      return this.remove(layers[layer], disableEmit);
+    }
+
+    const index = layers.indexOf(layer);
+    if (index < 0 || index >= layers.length) {
+      return false;
+    }
+
+    this._layers = [
+      ...layers.slice(0, index),
+      ...layers.slice(index + 1, layers.length),
+    ];
+
+    if (!disableEmit) {
+      this.emitChange();
+    }
+
+    return true;
+  }
+
   up(layer, disableEmit) {
     const layers = this._layers;
 
