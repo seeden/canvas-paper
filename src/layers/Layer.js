@@ -121,7 +121,7 @@ export default class Layer extends EventEmitter {
   emitChange = () => {
     this.emit('change');
     return this;
-  }
+  };
 
   toJSON() {
     return {

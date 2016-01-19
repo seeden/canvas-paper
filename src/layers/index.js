@@ -1,9 +1,9 @@
-import Text from './Text';
-import Photo from './Photo';
 import Img from './Img';
 import Layer from './Layer';
+import Photo from './Photo';
 import RandomText from './RandomText';
-import Selection from './Selection';
 import Rect from './Rect';
+import Selection from './Selection';
+import Text from './Text';
 
 export { Text, Photo, Img, Layer, RandomText, Selection, Rect };

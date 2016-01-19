@@ -1,7 +1,7 @@
 import LayerType from '../constants/LayerType';
 import { Text, Img, Photo, RandomText, Selection, Layer, Rect } from '../layers';
 
-export function createLayer(options) {
+export function createLayer(options = {}) {
   switch (options.type) {
   case LayerType.TEXT:
     return new Text(options);
@@ -20,6 +20,6 @@ export function createLayer(options) {
   }
 }
 
-export default function parseLayers(layers) {
-  return layers.map((options) => createLayer(options));
+export default function parseLayers(layers = [], createLayerFn = createLayer) {
+  return layers.map((options) => createLayerFn(options));
 }

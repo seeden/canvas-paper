@@ -1,4 +1,4 @@
-import { setImmediate } from 'async';
+import { eachSeries } from 'async-sync';
 import getImage from './utils/getImage';
 import { Layer } from './layers';
 import { EventEmitter } from 'events';
@@ -10,46 +10,6 @@ const defaultOptions = {
   getImage,
   cacheImages: false,
 };
-
-function eachSeriesSync(items, fn, callback, current = 0) {
-  if (items.length <= current) {
-    return callback(null);
-  }
-
-  // try to do everything sync
-  for (let index = current; index < items.length; index++) {
-    const item = items[index];
-
-    let hasResult = false;
-    let isAsync = false;
-
-    fn(item, (err) => {
-      if (err) {
-        return callback(err);
-      }
-
-      hasResult = true;
-
-      // if sync then next itteration is by for
-      if (!isAsync) {
-        return void 0;
-      }
-
-      // call async function because it was async already
-      setImmediate(() => eachSeriesSync(items, fn, callback, index + 1));
-    });
-
-    isAsync = true;
-
-    // waiting for async operation
-    if (!hasResult) {
-      return void 0;
-    }
-  }
-
-  // everything sync finished
-  callback(null);
-}
 
 export default class Paper extends EventEmitter {
   constructor(options = {}) {
@@ -170,7 +130,7 @@ export default class Paper extends EventEmitter {
 
   emitChange = () => {
     this.emit('change');
-  }
+  };
 
   useLayers(layers, disableEmit) {
     this.clear(disableEmit);
@@ -213,7 +173,7 @@ export default class Paper extends EventEmitter {
     // render layers
     const layers = this.getLayers();
 
-    eachSeriesSync(layers, (layer, eachCallback) => {
+    eachSeries(layers, (layer, eachCallback) => {
       if (layer.isHidden()) {
         return eachCallback(null);
       }
