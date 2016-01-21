@@ -12,8 +12,8 @@ const defaultOptions = {
 };
 
 export default class Photo extends Img {
-  constructor(paper, options = {}) {
-    super(paper, {
+  constructor(parent, options = {}) {
+    super(parent, {
       ...defaultOptions,
       ...options,
     });

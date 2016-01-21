@@ -17,8 +17,8 @@ const defaultOptions = {
 };
 
 export default class Text extends Layer {
-  constructor(paper, options = {}) {
-    super(paper, {
+  constructor(parent, options = {}) {
+    super(parent, {
       ...defaultOptions,
       ...options,
     });
@@ -82,7 +82,7 @@ export default class Text extends Layer {
 
   getTextPosition() {
     const textAlign = this.getTextAlign();
-    const position = this.getPosition();
+    const position = this.getOffset();
 
     if (textAlign === TextAlign.CENTER) {
       return {
@@ -102,7 +102,7 @@ export default class Text extends Layer {
     };
   }
 
-  render(ctx, paper, callback) {
+  render(ctx, callback) {
     const text = this.getText();
     const alignPosition = this.getTextPosition();
 

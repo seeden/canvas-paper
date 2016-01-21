@@ -10,18 +10,18 @@ const defaultOptions = {
 };
 
 export default class Layer extends EventEmitter {
-  constructor(paper, options = {}) {
+  constructor(parent, options = {}) {
     super();
 
-    if (!paper) {
-      throw new Error('Paper is undefined');
+    if (!parent) {
+      throw new Error('Parent is undefined');
     }
 
     if (!options.type) {
       throw new Error('You need to specifiy layer type');
     }
 
-    this._paper = paper;
+    this._parent = parent;
 
     this._options = {
       ...defaultOptions,
@@ -29,8 +29,20 @@ export default class Layer extends EventEmitter {
     };
   }
 
+  getParent() {
+    return this._parent;
+  }
+
   getPaper() {
-    return this._paper;
+    return this.getParent().getPaper();
+  }
+
+  getImage(url, callback) {
+    return this.getParent().getImage(url, callback);
+  }
+
+  createLayer(layer) {
+    return this.getParent().createLayer(layer);
   }
 
   getOptions() {
@@ -79,6 +91,18 @@ export default class Layer extends EventEmitter {
 
   setAlpha(value, disableEmit) {
     return this.set('alpha', value, disableEmit);
+  }
+
+  getOffset() {
+    const position = this.getPosition();
+    const parentOffset = this.getParent().getOffset();
+
+    return {
+      x: position.x + parentOffset.x,
+      y: position.y + parentOffset.y,
+      width: position.width,
+      height: position.height,
+    };
   }
 
   getPosition() {
@@ -143,7 +167,7 @@ export default class Layer extends EventEmitter {
     ctx.globalAlpha = this.getAlpha();
   }
 
-  render(/* ctx, paper, callback */) {
+  render(/* ctx, callback */) {
     throw new Error('You need to override render method');
   }
 }

@@ -11,8 +11,8 @@ const defaultOptions = {
 };
 
 export default class Rect extends Layer {
-  constructor(paper, options = {}) {
-    super(paper, {
+  constructor(parent, options = {}) {
+    super(parent, {
       ...defaultOptions,
       ...options,
     });
@@ -42,8 +42,8 @@ export default class Rect extends Layer {
     return this.set('strokeStyle', value, disableEmit);
   }
 
-  render(ctx, paper, callback) {
-    const position = this.getPosition();
+  render(ctx, callback) {
+    const position = this.getOffset();
 
     ctx.rect(position.x, position.y, position.width, position.height);
 

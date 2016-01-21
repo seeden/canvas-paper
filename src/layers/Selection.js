@@ -9,14 +9,14 @@ const defaultOptions = {
 };
 
 export default class Selection extends Layer {
-  constructor(paper, options = {}) {
-    super(paper, {
+  constructor(parent, options = {}) {
+    super(parent, {
       ...defaultOptions,
       ...options,
     });
   }
 
-  render(ctx, paper, callback) {
+  render(ctx, callback) {
     const options = this.getOptions();
     const layer = options.layer;
     if (!(layer instanceof Layer)) {
@@ -27,13 +27,13 @@ export default class Selection extends Layer {
     ctx.strokeStyle = options.strokeStyle;
 
     const canvas = ctx.canvas;
-    const position = layer.getPosition();
+    const position = layer.getOffset();
 
     if (typeof position.width !== 'undefined' && typeof position.height !== 'undefined') {
       ctx.strokeRect(position.x, position.y, position.width, position.height);
       return callback(null);
     } else if (layer instanceof Img) {
-      return paper.getImage(layer.getUrl(), (err, img) => {
+      return this.getImage(layer.getUrl(), (err, img) => {
         if (err) {
           return callback(err);
         }

@@ -7,8 +7,8 @@ const defaultOptions = {
 };
 
 export default class RandomText extends Text {
-  constructor(paper, options = {}) {
-    super(paper, {
+  constructor(parent, options = {}) {
+    super(parent, {
       ...defaultOptions,
       ...options,
     });

@@ -125,7 +125,7 @@ export default class Paper extends EventEmitter {
 
   createLayer(options = {}) {
     const customCreateLayer = this.getOptions().createLayer;
-    return createLayer(this, layer, customCreateLayer);
+    return createLayer(this, options, customCreateLayer);
   }
 
   addLayer(layer, disableEmit) {
@@ -168,6 +168,13 @@ export default class Paper extends EventEmitter {
     return this._layers.map(fn);
   }
 
+  getOffset() {
+    return {
+      x: 0,
+      y: 0,
+    };
+  }
+
   render(canvas, continueOnError, callback) {
     if (typeof continueOnError === 'function') {
       return this.render(canvas, false, false, continueOnError);
@@ -203,7 +210,7 @@ export default class Paper extends EventEmitter {
       ctx.beginPath();
 
       layer.prepareContext(ctx);
-      layer.render(ctx, this, (err) => {
+      layer.render(ctx, (err) => {
         ctx.restore();
 
         if (continueOnError) {

@@ -12,8 +12,8 @@ const defaultOptions = {
 };
 
 export default class Img extends Layer {
-  constructor(paper, options = {}) {
-    super(paper, {
+  constructor(parent, options = {}) {
+    super(parent, {
       ...defaultOptions,
       ...options,
     });
@@ -48,7 +48,7 @@ export default class Img extends Layer {
   }
 
   resizeFit(ctx, img) {
-    const position = this.getPosition();
+    const position = this.getOffset();
 
     if (typeof position.width === 'undefined' || typeof position.height === 'undefined') {
       ctx.drawImage(img, position.x, position.y);
@@ -58,7 +58,7 @@ export default class Img extends Layer {
   }
 
   getCoverSize(img) {
-    const position = this.getPosition();
+    const position = this.getOffset();
 
     // thumb size
     const width = position.width || img.width;
@@ -119,7 +119,7 @@ export default class Img extends Layer {
   }
 
   resizeCover(ctx, img) {
-    const destPosition = this.getPosition();
+    const destPosition = this.getOffset();
     const sourcePosition = this.getCoverPosition(img);
 
     ctx.drawImage(img,
@@ -129,8 +129,12 @@ export default class Img extends Layer {
     return this;
   }
 
-  render(ctx, paper, callback) {
-    paper.getImage(this.getUrl(), (err, img) => {
+  getImage(callback) {
+    return super.getImage(this.getUrl(), callback);
+  }
+
+  render(ctx, parent, callback) {
+    this.getImage((err, img) => {
       if (err) {
         return callback(err);
       }
