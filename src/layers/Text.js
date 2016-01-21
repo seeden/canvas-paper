@@ -17,8 +17,8 @@ const defaultOptions = {
 };
 
 export default class Text extends Layer {
-  constructor(options = {}) {
-    super({
+  constructor(paper, options = {}) {
+    super(paper, {
       ...defaultOptions,
       ...options,
     });

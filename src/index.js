@@ -7,8 +7,6 @@ import ResizeType from './constants/ResizeType';
 import TextAlign from './constants/TextAlign';
 import TextBaseline from './constants/TextBaseline';
 
-import parseLayers, { createLayer } from './utils/parseLayers';
-
 export {
   Layers,
   CoverType,
@@ -16,8 +14,6 @@ export {
   ResizeType,
   TextAlign,
   TextBaseline,
-  createLayer,
-  parseLayers,
 };
 
 export default Paper;

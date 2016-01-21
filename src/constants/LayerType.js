@@ -7,4 +7,5 @@ export default keymirror({
   RANDOM_TEXT: null,
   SELECTION: null,
   RECT: null,
+  GROUP: null,
 });

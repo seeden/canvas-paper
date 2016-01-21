@@ -34,4 +34,3 @@ export function getImageCached(url, callback) {
 export function clearCache() {
   images = {};
 }
-

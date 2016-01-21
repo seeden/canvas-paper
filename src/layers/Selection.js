@@ -9,8 +9,8 @@ const defaultOptions = {
 };
 
 export default class Selection extends Layer {
-  constructor(options = {}) {
-    super({
+  constructor(paper, options = {}) {
+    super(paper, {
       ...defaultOptions,
       ...options,
     });

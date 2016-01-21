@@ -11,8 +11,8 @@ const defaultOptions = {
 };
 
 export default class Rect extends Layer {
-  constructor(options = {}) {
-    super({
+  constructor(paper, options = {}) {
+    super(paper, {
       ...defaultOptions,
       ...options,
     });

@@ -10,17 +10,27 @@ const defaultOptions = {
 };
 
 export default class Layer extends EventEmitter {
-  constructor(options = {}) {
+  constructor(paper, options = {}) {
     super();
+
+    if (!paper) {
+      throw new Error('Paper is undefined');
+    }
 
     if (!options.type) {
       throw new Error('You need to specifiy layer type');
     }
 
+    this._paper = paper;
+
     this._options = {
       ...defaultOptions,
       ...options,
     };
+  }
+
+  getPaper() {
+    return this._paper;
   }
 
   getOptions() {

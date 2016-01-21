@@ -2,6 +2,12 @@ import { eachSeries } from 'async-sync';
 import getImage from './utils/getImage';
 import { Layer } from './layers';
 import { EventEmitter } from 'events';
+import { createLayer } from './utils/createLayer';
+import isPlainObject from 'lodash/lang/isPlainObject';
+
+function undefinedLayer(options = {}) {
+  throw new Error(`Layer with type ${options.type} has not builder`);
+}
 
 const defaultOptions = {
   backgroundColor: 'white',
@@ -9,6 +15,7 @@ const defaultOptions = {
   antialias: 'subpixel',
   getImage,
   cacheImages: false,
+  createLayer: undefinedLayer,
 };
 
 export default class Paper extends EventEmitter {
@@ -80,6 +87,8 @@ export default class Paper extends EventEmitter {
       return false;
     }
 
+    layer.removeListener('change', this.emitChange);
+
     this._layers = [
       ...layers.slice(0, index),
       ...layers.slice(index + 1, layers.length),
@@ -114,9 +123,18 @@ export default class Paper extends EventEmitter {
     return true;
   }
 
+  createLayer(options = {}) {
+    const customCreateLayer = this.getOptions().createLayer;
+    return createLayer(this, layer, customCreateLayer);
+  }
+
   addLayer(layer, disableEmit) {
-    if (!(layer instanceof Layer)) {
-      throw new Error('Layer is not instanceof layer');
+    if (isPlainObject(layer)) {
+      return this.addLayer(this.createLayer(layer), disableEmit);
+    }
+
+    if (!(layer instanceof Layer) || layer.getPaper() !== this) {
+      throw new Error('Layer is not instanceof layer or paper is not same');
     }
 
     this._layers.push(layer);
@@ -193,7 +211,7 @@ export default class Paper extends EventEmitter {
         }
 
         eachCallback(err);
-      });
+      }, continueOnError);
     }, callback);
   }
 }
