@@ -133,7 +133,7 @@ export default class Img extends Layer {
     return super.getImage(this.getUrl(), callback);
   }
 
-  render(ctx, parent, callback) {
+  render(ctx, callback) {
     this.getImage((err, img) => {
       if (err) {
         return callback(err);
