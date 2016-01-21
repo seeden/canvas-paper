@@ -119,14 +119,14 @@ export default class Paper extends EventEmitter {
     return true;
   }
 
-  parse(options = {}) {
+  parse(parent, options = {}) {
     const customParse = this.getOptions().parse;
-    return parse(this, options, customParse);
+    return parse(parent, options, customParse);
   }
 
   addLayer(layer, disableEmit) {
     if (isPlainObject(layer)) {
-      return this.addLayer(this.parse(layer), disableEmit);
+      return this.addLayer(this.parse(this, layer), disableEmit);
     }
 
     if (!(layer instanceof Layer) || layer.getPaper() !== this) {

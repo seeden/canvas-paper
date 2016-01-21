@@ -15,7 +15,7 @@ export default class Selection extends Layer {
       ...options,
     });
 
-    this._layer = this.createLayer(this.getOptions().layer);
+    this._layer = this.parse(this, this.getOptions().layer);
   }
 
   getLayer() {
