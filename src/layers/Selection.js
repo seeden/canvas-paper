@@ -14,14 +14,17 @@ export default class Selection extends Layer {
       ...defaultOptions,
       ...options,
     });
+
+    this._layer = this.createLayer(this.getOptions().layer);
+  }
+
+  getLayer() {
+    return this._layer;
   }
 
   render(ctx, callback) {
     const options = this.getOptions();
-    const layer = options.layer;
-    if (!(layer instanceof Layer)) {
-      return callback(new Error('Layer is not instance of layer'));
-    }
+    const layer = this.getLayer();
 
     ctx.lineWidth = options.lineWidth;
     ctx.strokeStyle = options.strokeStyle;
