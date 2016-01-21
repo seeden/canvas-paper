@@ -2,12 +2,8 @@ import { eachSeries } from 'async-sync';
 import getImage from './utils/getImage';
 import { Layer } from './layers';
 import { EventEmitter } from 'events';
-import { createLayer } from './utils/createLayer';
+import parse from './layers/parse';
 import isPlainObject from 'lodash/lang/isPlainObject';
-
-function undefinedLayer(options = {}) {
-  throw new Error(`Layer with type ${options.type} has not builder`);
-}
 
 const defaultOptions = {
   backgroundColor: 'white',
@@ -15,7 +11,7 @@ const defaultOptions = {
   antialias: 'subpixel',
   getImage,
   cacheImages: false,
-  createLayer: undefinedLayer,
+  parse,
 };
 
 export default class Paper extends EventEmitter {
@@ -123,14 +119,14 @@ export default class Paper extends EventEmitter {
     return true;
   }
 
-  createLayer(options = {}) {
-    const customCreateLayer = this.getOptions().createLayer;
-    return createLayer(this, options, customCreateLayer);
+  parse(options = {}) {
+    const customParse = this.getOptions().parse;
+    return parse(this, options, customParse);
   }
 
   addLayer(layer, disableEmit) {
     if (isPlainObject(layer)) {
-      return this.addLayer(this.createLayer(layer), disableEmit);
+      return this.addLayer(this.parse(layer), disableEmit);
     }
 
     if (!(layer instanceof Layer) || layer.getPaper() !== this) {

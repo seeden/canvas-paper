@@ -41,8 +41,8 @@ export default class Layer extends EventEmitter {
     return this.getParent().getImage(url, callback);
   }
 
-  createLayer(layer) {
-    return this.getParent().createLayer(layer);
+  parse(layer) {
+    return this.getParent().parse(layer);
   }
 
   getOptions() {
