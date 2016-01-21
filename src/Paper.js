@@ -39,6 +39,10 @@ export default class Paper extends EventEmitter {
     return [...this._layers];
   }
 
+  getPaper() {
+    return this;
+  }
+
   clear(disableEmit) {
     this._layers.forEach((layer) => {
       layer.removeListener('change', this.emitChange);
